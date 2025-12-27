@@ -1,0 +1,66 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\faust\\source\\repos\\BibliotecaAPI\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{9F04E9A0-91CB-D2BF-BA57-FBA592C5D391}|BibliotecaAPI\\BibliotecaAPI.csproj|c:\\users\\faust\\source\\repos\\bibliotecaapi\\bibliotecaapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9F04E9A0-91CB-D2BF-BA57-FBA592C5D391}|BibliotecaAPI\\BibliotecaAPI.csproj|solutionrelative:bibliotecaapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9F04E9A0-91CB-D2BF-BA57-FBA592C5D391}|BibliotecaAPI\\BibliotecaAPI.csproj|c:\\users\\faust\\source\\repos\\bibliotecaapi\\bibliotecaapi\\swagger\\filtroautorizacion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9F04E9A0-91CB-D2BF-BA57-FBA592C5D391}|BibliotecaAPI\\BibliotecaAPI.csproj|solutionrelative:bibliotecaapi\\swagger\\filtroautorizacion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{eefa5220-e298-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\faust\\source\\repos\\BibliotecaAPI\\BibliotecaAPI\\Program.cs",
+              "RelativeDocumentMoniker": "BibliotecaAPI\\Program.cs",
+              "ToolTip": "C:\\Users\\faust\\source\\repos\\BibliotecaAPI\\BibliotecaAPI\\Program.cs",
+              "RelativeToolTip": "BibliotecaAPI\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAFEAAABXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-27T13:02:45.479Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "FiltroAutorizacion.cs",
+              "DocumentMoniker": "C:\\Users\\faust\\source\\repos\\BibliotecaAPI\\BibliotecaAPI\\Swagger\\FiltroAutorizacion.cs",
+              "RelativeDocumentMoniker": "BibliotecaAPI\\Swagger\\FiltroAutorizacion.cs",
+              "ToolTip": "C:\\Users\\faust\\source\\repos\\BibliotecaAPI\\BibliotecaAPI\\Swagger\\FiltroAutorizacion.cs",
+              "RelativeToolTip": "BibliotecaAPI\\Swagger\\FiltroAutorizacion.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABkAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-27T13:40:38.147Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
