@@ -3,12 +3,16 @@
   "WorkspaceRootPath": "C:\\Users\\faust\\source\\repos\\BibliotecaAPI\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{9F04E9A0-91CB-D2BF-BA57-FBA592C5D391}|BibliotecaAPI\\BibliotecaAPI.csproj|c:\\users\\faust\\source\\repos\\bibliotecaapi\\bibliotecaapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9F04E9A0-91CB-D2BF-BA57-FBA592C5D391}|BibliotecaAPI\\BibliotecaAPI.csproj|solutionrelative:bibliotecaapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{9F04E9A0-91CB-D2BF-BA57-FBA592C5D391}|BibliotecaAPI\\BibliotecaAPI.csproj|c:\\users\\faust\\source\\repos\\bibliotecaapi\\bibliotecaapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{9F04E9A0-91CB-D2BF-BA57-FBA592C5D391}|BibliotecaAPI\\BibliotecaAPI.csproj|solutionrelative:bibliotecaapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9F04E9A0-91CB-D2BF-BA57-FBA592C5D391}|BibliotecaAPI\\BibliotecaAPI.csproj|c:\\users\\faust\\source\\repos\\bibliotecaapi\\bibliotecaapi\\swagger\\filtroautorizacion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9F04E9A0-91CB-D2BF-BA57-FBA592C5D391}|BibliotecaAPI\\BibliotecaAPI.csproj|solutionrelative:bibliotecaapi\\swagger\\filtroautorizacion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{9F04E9A0-91CB-D2BF-BA57-FBA592C5D391}|BibliotecaAPI\\BibliotecaAPI.csproj|c:\\users\\faust\\source\\repos\\bibliotecaapi\\bibliotecaapi\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{9F04E9A0-91CB-D2BF-BA57-FBA592C5D391}|BibliotecaAPI\\BibliotecaAPI.csproj|solutionrelative:bibliotecaapi\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9EB9FC7D-D13D-4149-9436-FD2701724398}|BibliotecaAPITests\\BibliotecaAPITests.csproj|c:\\users\\faust\\source\\repos\\bibliotecaapi\\bibliotecaapitests\\pruebasinteracion\\controllers\\v1\\libroscontrollerpruebas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9EB9FC7D-D13D-4149-9436-FD2701724398}|BibliotecaAPITests\\BibliotecaAPITests.csproj|solutionrelative:bibliotecaapitests\\pruebasinteracion\\controllers\\v1\\libroscontrollerpruebas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,7 +22,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 7,
           "Children": [
             {
               "$type": "Bookmark",
@@ -26,32 +30,61 @@
             },
             {
               "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{0ad07096-bba9-4900-a651-0598d26f6d24}"
+            },
+            {
+              "$type": "Bookmark",
               "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
             },
             {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\faust\\source\\repos\\BibliotecaAPI\\BibliotecaAPI\\Program.cs",
-              "RelativeDocumentMoniker": "BibliotecaAPI\\Program.cs",
-              "ToolTip": "C:\\Users\\faust\\source\\repos\\BibliotecaAPI\\BibliotecaAPI\\Program.cs*",
-              "RelativeToolTip": "BibliotecaAPI\\Program.cs*",
-              "ViewState": "AgIAAA8AAAAAAAAAAAAAAFgAAAA4AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-27T13:02:45.479Z",
-              "EditorCaption": ""
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{e1b7d1f8-9b3c-49b1-8f4f-bfc63a88835d}"
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "FiltroAutorizacion.cs",
-              "DocumentMoniker": "C:\\Users\\faust\\source\\repos\\BibliotecaAPI\\BibliotecaAPI\\Swagger\\FiltroAutorizacion.cs",
-              "RelativeDocumentMoniker": "BibliotecaAPI\\Swagger\\FiltroAutorizacion.cs",
-              "ToolTip": "C:\\Users\\faust\\source\\repos\\BibliotecaAPI\\BibliotecaAPI\\Swagger\\FiltroAutorizacion.cs",
-              "RelativeToolTip": "BibliotecaAPI\\Swagger\\FiltroAutorizacion.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAGAAAAAAAAAA==",
+              "Title": "appsettings.Development.json",
+              "DocumentMoniker": "C:\\Users\\faust\\source\\repos\\BibliotecaAPI\\BibliotecaAPI\\appsettings.Development.json",
+              "RelativeDocumentMoniker": "BibliotecaAPI\\appsettings.Development.json",
+              "ToolTip": "C:\\Users\\faust\\source\\repos\\BibliotecaAPI\\BibliotecaAPI\\appsettings.Development.json",
+              "RelativeToolTip": "BibliotecaAPI\\appsettings.Development.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-01-18T15:28:54.115Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\faust\\source\\repos\\BibliotecaAPI\\BibliotecaAPI\\appsettings.json",
+              "RelativeDocumentMoniker": "BibliotecaAPI\\appsettings.json",
+              "ToolTip": "C:\\Users\\faust\\source\\repos\\BibliotecaAPI\\BibliotecaAPI\\appsettings.json",
+              "RelativeToolTip": "BibliotecaAPI\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-01-18T15:28:52.376Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "LibrosControllerPruebas.cs",
+              "DocumentMoniker": "C:\\Users\\faust\\source\\repos\\BibliotecaAPI\\BibliotecaAPITests\\PruebasInteracion\\Controllers\\V1\\LibrosControllerPruebas.cs",
+              "RelativeDocumentMoniker": "BibliotecaAPITests\\PruebasInteracion\\Controllers\\V1\\LibrosControllerPruebas.cs",
+              "ToolTip": "C:\\Users\\faust\\source\\repos\\BibliotecaAPI\\BibliotecaAPITests\\PruebasInteracion\\Controllers\\V1\\LibrosControllerPruebas.cs",
+              "RelativeToolTip": "BibliotecaAPITests\\PruebasInteracion\\Controllers\\V1\\LibrosControllerPruebas.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAPAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-27T13:40:38.147Z",
+              "WhenOpened": "2026-01-17T22:12:13.974Z",
               "EditorCaption": ""
             }
           ]

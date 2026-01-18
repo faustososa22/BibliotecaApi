@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using Asp.Versioning;
+using AutoMapper;
 using BibliotecaAPI.Datos;
 using BibliotecaAPI.DTOs;
 using BibliotecaAPI.Entidades;
@@ -11,10 +12,12 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
-namespace BibliotecaAPI.Controllers
+namespace BibliotecaAPI.Controllers.V2
 {
+
     [ApiController]
-    [Route("api/usuarios")]
+    [ApiVersion("2.0")]
+    [Route("api/v{version:apiVersion}/usuarios")]
     public class UsuariosController: ControllerBase
     {
         private readonly UserManager<Usuario> userManager;
@@ -33,7 +36,7 @@ namespace BibliotecaAPI.Controllers
             this.context = context;
             this.mapper = mapper;
         }
-
+        [MapToApiVersion("2.0")]
         [HttpGet]
         [Authorize(Policy = "esadmin")]
         public async Task<IEnumerable<UsuarioDTO>> Get()
@@ -42,7 +45,7 @@ namespace BibliotecaAPI.Controllers
             var usuariosDTO = mapper.Map<IEnumerable<UsuarioDTO>>(usuarios);
             return usuariosDTO;
         }
-
+        [MapToApiVersion("2.0")]
         [HttpPost("registro")]
         public async Task<ActionResult<RespuestaAutenticacionDTO>> Registrar(CredencialesUsuarioDTO credencialesUsuarioDTO)
         {
@@ -69,7 +72,7 @@ namespace BibliotecaAPI.Controllers
                 return ValidationProblem();
             }
         }
-
+        [MapToApiVersion("2.0")]
         [HttpPost("login")]
         public async Task<ActionResult<RespuestaAutenticacionDTO>> Login(CredencialesUsuarioDTO credencialesUsuarioDTO)
         {
@@ -90,7 +93,7 @@ namespace BibliotecaAPI.Controllers
                 return RetornarLoginIncorrecto();
             }
         }
-
+        [MapToApiVersion("2.0")]
         [HttpPut]
         [Authorize]
         public async Task<ActionResult> Put(ActualizarUsuarioDTO actualizarUsuarioDTO)
@@ -105,7 +108,7 @@ namespace BibliotecaAPI.Controllers
             await userManager.UpdateAsync(usuario);
             return NoContent();
         }
-
+        [MapToApiVersion("2.0")]
         [HttpGet("renovar-token")]
         [Authorize]
         public async Task<ActionResult<RespuestaAutenticacionDTO>> RenovarToken()
@@ -124,7 +127,7 @@ namespace BibliotecaAPI.Controllers
             var respuestaAutenticacion = await ConstruirToken(credencialesUsuarioDTO);
             return respuestaAutenticacion;
         }
-
+        [MapToApiVersion("2.0")]
         [HttpPost("hacer-admin")]
         [Authorize(Policy = "esadmin")]
         public async Task<ActionResult> HacerAdmin(EditarClaimDTO editarClaimDTO)
@@ -137,7 +140,7 @@ namespace BibliotecaAPI.Controllers
             await userManager.AddClaimAsync(usuario, new Claim("esadmin", "true"));
             return NoContent();
         }
-
+        [MapToApiVersion("2.0")]
         [HttpPost("remover-admin")]
         [Authorize(Policy = "esadmin")]
         public async Task<ActionResult> RemoverAdmin(EditarClaimDTO editarClaimDTO)

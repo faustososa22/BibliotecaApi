@@ -1,16 +1,20 @@
-﻿using AutoMapper;
+﻿using Asp.Versioning;
+using AutoMapper;
 using BibliotecaAPI.Datos;
 using BibliotecaAPI.DTOs;
 using BibliotecaAPI.Entidades;
+using BibliotecaAPI.Utilidades;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OutputCaching;
 using Microsoft.EntityFrameworkCore;
 
-namespace BibliotecaAPI.Controllers
+namespace BibliotecaAPI.Controllers.V2
 {
     [ApiController]
-    [Route("api/libros")]
+    [ApiVersion("2.0")]
+    [Route("api/v{version:apiVersion}/libros")]
     [Authorize(Policy = "esadmin")]
 
 
@@ -18,29 +22,32 @@ namespace BibliotecaAPI.Controllers
     {
         private readonly ApplicationDbContext context;
         private readonly IMapper mapper;
-
-        public LibrosController(ApplicationDbContext context, IMapper mapper)
+        private readonly IOutputCacheStore outputCacheStore;
+        private const string cache = "libros-obtener";
+        public LibrosController(ApplicationDbContext context, IMapper mapper, IOutputCacheStore outputCacheStore)
         {
             this.context = context;
             this.mapper = mapper;
-            
+            this.outputCacheStore = outputCacheStore;
         }
 
-
+        [MapToApiVersion("2.0")]
         [HttpGet]
         [AllowAnonymous]
-
-        public async Task<IEnumerable<LibroDTO>> Get()
+        [OutputCache(Tags = [cache])]
+        public async Task<IEnumerable<LibroDTO>> Get([FromQuery] PaginacionDTO paginacionDTO)
         {
-            var libros =  await context.Libros.ToListAsync();
+            var queryable =   context.Libros.AsQueryable();
+            await HttpContext.InsertarParametrosPaginacionEnCabecera(queryable);
+            var libros = await queryable.OrderBy(x => x.Titulo).Paginar(paginacionDTO).ToListAsync();
             var librosDTO = mapper.Map<IEnumerable<LibroDTO>>(libros);
             return librosDTO;
 
         }
-
-        [HttpGet("{id:int}", Name = "ObtenerLibro")] // api/libros/id
+        [MapToApiVersion("2.0")]
+        [HttpGet("{id:int}", Name = "ObtenerLibroV2")] // api/libros/id
         [AllowAnonymous]
-
+        [OutputCache(Tags = [cache])]
         public async Task<ActionResult<LibroConAutoresDTO>> Get(int id)
         {
             var libro = await context.Libros
@@ -57,39 +64,20 @@ namespace BibliotecaAPI.Controllers
 
             return libroDTO;
         }
-
+        [MapToApiVersion("2.0")]
         [HttpPost]
+        [ServiceFilter<FiltroValidacionLibro>()]
         public async Task<ActionResult> Post(LibroCreacionDTO libroCreacionDTO)
         {
-            if (libroCreacionDTO.AutoresId is null || libroCreacionDTO.AutoresId.Count == 0)
-            {
-                ModelState.AddModelError(nameof(libroCreacionDTO.AutoresId),
-                    "No se puede crear un libro sin autores");
-                return ValidationProblem();
-            }
-
-            var autoresIdsExisten = await context.Autores
-                                    .Where(x => libroCreacionDTO.AutoresId.Contains(x.Id))
-                                    .Select(x => x.Id).ToListAsync();
-
-            if (autoresIdsExisten.Count != libroCreacionDTO.AutoresId.Count)
-            {
-                var autoresNoExisten = libroCreacionDTO.AutoresId.Except(autoresIdsExisten);
-                var autoresNoExistenString = string.Join(",", autoresNoExisten);
-                var mensajeDeError = $"Los siguientes autores no existen: {autoresNoExistenString}";
-                ModelState.AddModelError(nameof(libroCreacionDTO.AutoresId), mensajeDeError);
-                return ValidationProblem();
-            }
-
             var libro = mapper.Map<Libro>(libroCreacionDTO);
             AsignarOrdenDeAutores(libro);
 
             context.Add(libro);
             await context.SaveChangesAsync();
-
+            await outputCacheStore.EvictByTagAsync(cache, default);
             var libroDTO = mapper.Map<LibroDTO>(libro);
 
-            return CreatedAtRoute("ObtenerLibro", new { id = libro.Id }, libroDTO);
+            return CreatedAtRoute("ObtenerLibroV2", new { id = libro.Id }, libroDTO);
         }
 
         private void AsignarOrdenDeAutores(Libro libro)
@@ -102,30 +90,11 @@ namespace BibliotecaAPI.Controllers
                 }
             }
         }
-
+        [MapToApiVersion("2.0")]
         [HttpPut("{id:int}")] //Actualizar libro
+        [ServiceFilter<FiltroValidacionLibro>()]
         public async Task<ActionResult> Put(int id, LibroCreacionDTO libroCreacionDTO)
         {
-            if (libroCreacionDTO.AutoresId is null || libroCreacionDTO.AutoresId.Count == 0)
-            {
-                ModelState.AddModelError(nameof(libroCreacionDTO.AutoresId),
-                    "No se puede crear un libro sin autores");
-                return ValidationProblem();
-            }
-
-            var autoresIdsExisten = await context.Autores
-                                    .Where(x => libroCreacionDTO.AutoresId.Contains(x.Id))
-                                    .Select(x => x.Id).ToListAsync();
-
-            if (autoresIdsExisten.Count != libroCreacionDTO.AutoresId.Count)
-            {
-                var autoresNoExisten = libroCreacionDTO.AutoresId.Except(autoresIdsExisten);
-                var autoresNoExistenString = string.Join(",", autoresNoExisten);
-                var mensajeDeError = $"Los siguientes autores no existen: {autoresNoExistenString}";
-                ModelState.AddModelError(nameof(libroCreacionDTO.AutoresId), mensajeDeError);
-                return ValidationProblem();
-            }
-
             var libroDB = await context.Libros
                 .Include(x => x.Autores)
                 .FirstOrDefaultAsync(x => x.Id == id);
@@ -139,9 +108,10 @@ namespace BibliotecaAPI.Controllers
             AsignarOrdenDeAutores(libroDB);
 
             await context.SaveChangesAsync();
+            await outputCacheStore.EvictByTagAsync(cache, default);
             return NoContent();
         }
-
+        [MapToApiVersion("2.0")]
         [HttpDelete("{id:int}")] //Eliminar libro
         public async Task<ActionResult> Delete(int id)
         {
@@ -151,7 +121,7 @@ namespace BibliotecaAPI.Controllers
             {
                 return NotFound();
             }
-
+            await outputCacheStore.EvictByTagAsync(cache, default);
             return NoContent();
         }
 

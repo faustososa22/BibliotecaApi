@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using Asp.Versioning;
+using AutoMapper;
 using BibliotecaAPI.Datos;
 using BibliotecaAPI.DTOs;
 using BibliotecaAPI.Entidades;
@@ -6,12 +7,14 @@ using BibliotecaAPI.Servicios;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OutputCaching;
 using Microsoft.EntityFrameworkCore;
 
-namespace BibliotecaAPI.Controllers
+namespace BibliotecaAPI.Controllers.V1
 {
     [ApiController]
-    [Route("api/libros/{libroId:int}/comentarios")]
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/libros/{libroId:int}/comentarios")]
     [Authorize]
 
     public class ComentariosController: ControllerBase
@@ -19,17 +22,21 @@ namespace BibliotecaAPI.Controllers
         private readonly ApplicationDbContext context;
         private readonly IMapper mapper;
         private readonly IServiciosUsuarios serviciosUsuarios;
+        private readonly IOutputCacheStore outputCacheStore;
+        private const string cache = "comentarios-obtener";
 
-        public ComentariosController(ApplicationDbContext context, IMapper mapper, IServiciosUsuarios serviciosUsuarios)
+        public ComentariosController(ApplicationDbContext context, IMapper mapper, IServiciosUsuarios serviciosUsuarios, IOutputCacheStore outputCacheStore)
         {
             this.context = context;
             this.mapper = mapper;
             this.serviciosUsuarios = serviciosUsuarios;
+            this.outputCacheStore = outputCacheStore;
         }
 
-        [HttpGet]
+        [MapToApiVersion("1.0")]
+        [HttpGet(Name = "ObtenerComentariosV1")]
         [AllowAnonymous]
-
+        [OutputCache(Tags = [cache])]
         public async Task<ActionResult<List<ComentarioDTO>>> Get(int libroId)
         {
             var existeLibro = await context.Libros.AnyAsync(x => x.Id == libroId);
@@ -48,9 +55,10 @@ namespace BibliotecaAPI.Controllers
             return mapper.Map<List<ComentarioDTO>>(comentarios);
         }
 
-        [HttpGet("{id}", Name = "ObtenerComentario")]
+        [MapToApiVersion("1.0")]
+        [HttpGet("{id}", Name = "ObtenerComentarioV1")]
         [AllowAnonymous]
-
+        [OutputCache(Tags = [cache])]
         public async Task<ActionResult<ComentarioDTO>> Get(Guid id)
         {
             var comentario = await context.Comentarios
@@ -64,7 +72,8 @@ namespace BibliotecaAPI.Controllers
             return mapper.Map<ComentarioDTO>(comentario);
         }
 
-        [HttpPost]
+        [MapToApiVersion("1.0")]
+        [HttpPost(Name = "CrearComentarioV1")]
         public async Task<ActionResult> Post(int libroId, ComentarioCreacionDTO comentarioCreacionDTO)
         {
             var existeLibro = await context.Libros.AnyAsync(x => x.Id == libroId);
@@ -87,12 +96,13 @@ namespace BibliotecaAPI.Controllers
             comentario.UsuarioId = usuario.Id;
             context.Add(comentario);
             await context.SaveChangesAsync();
-
+            await outputCacheStore.EvictByTagAsync(cache, default);
             var comentarioDTO = mapper.Map<ComentarioDTO>(comentario);
-            return CreatedAtRoute("ObtenerComentario", new { id = comentario.Id, libroId }, comentarioDTO);
+            return CreatedAtRoute("ObtenerComentarioV1", new { id = comentario.Id, libroId }, comentarioDTO);
         }
 
-        [HttpPatch("{id}")]
+        [MapToApiVersion("1.0")]
+        [HttpPatch("{id}", Name = "PatchComentarioV1")]
         
         public async Task<ActionResult> Patch(Guid id, int libroId, JsonPatchDocument<ComentarioPatchDTO> patchDoc)
         {
@@ -141,11 +151,12 @@ namespace BibliotecaAPI.Controllers
             mapper.Map(comentarioPatchDTO, comentarioDB);
 
             await context.SaveChangesAsync();
-
+            await outputCacheStore.EvictByTagAsync(cache, default);
             return NoContent();
         }
 
-        [HttpDelete("{id}")]
+        [MapToApiVersion("1.0")]
+        [HttpDelete("{id}", Name = "BorrarComentarioV1")]
         public async Task<ActionResult> Delete(Guid id, int libroId)
         {
             var existeLibro = await context.Libros.AnyAsync(x => x.Id == libroId);
@@ -172,9 +183,10 @@ namespace BibliotecaAPI.Controllers
                 return Forbid();
             }
 
-            context.Remove(comentarioDB);
+            comentarioDB.EstaBorrado = true;
+            context.Update(comentarioDB);
             await context.SaveChangesAsync();
-
+            await outputCacheStore.EvictByTagAsync(cache, default);
             return NoContent();
         }
 

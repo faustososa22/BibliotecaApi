@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using Asp.Versioning;
+using AutoMapper;
 using BibliotecaAPI.Datos;
 using BibliotecaAPI.DTOs;
 using BibliotecaAPI.Entidades;
@@ -6,12 +7,13 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace BibliotecaAPI.Controllers
+namespace BibliotecaAPI.Controllers.V1
 
 
 {
     [ApiController]
-    [Route("api/autores-coleccion")]
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/autores-coleccion")]
     [Authorize(Policy = "esadmin")]
     public class AutoresColleccionController: ControllerBase
     {
@@ -24,7 +26,8 @@ namespace BibliotecaAPI.Controllers
             this.mapper = mapper;
         }
 
-        [HttpGet("{ids}", Name = "ObtenerAutoresPorIds")] // api/autores-coleccion/1,2,3
+        [MapToApiVersion("1.0")]
+        [HttpGet("{ids}", Name = "ObtenerAutoresPorIdsV1")] // api/autores-coleccion/1,2,3
         public async Task<ActionResult<List<AutorConLibrosDTO>>> Get(string ids)
         {
             var idsColeccion = new List<int>();
@@ -58,7 +61,8 @@ namespace BibliotecaAPI.Controllers
 
         }
 
-        [HttpPost]
+        [MapToApiVersion("1.0")]
+        [HttpPost(Name = "CrearAutoresV1")]
         public async Task<ActionResult> Post(IEnumerable<AutorCreacionDTO> autorCreacionDTOs)
         {
             var autores = mapper.Map<IEnumerable<Autor>>(autorCreacionDTOs);
@@ -68,7 +72,7 @@ namespace BibliotecaAPI.Controllers
             var autoresDTO = mapper.Map<IEnumerable<AutorDTO>>(autores);
             var ids = autores.Select(x => x.Id);
             var idsString = string.Join(",", ids);
-            return CreatedAtRoute("ObtenerAutoresPorIds", new { ids = idsString}, autoresDTO);
+            return CreatedAtRoute("ObtenerAutoresPorIdsV1", new { ids = idsString}, autoresDTO);
         }
 
     }

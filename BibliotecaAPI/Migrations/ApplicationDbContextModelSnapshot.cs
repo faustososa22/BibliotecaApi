@@ -17,7 +17,7 @@ namespace BibliotecaAPI.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "10.0.1")
+                .HasAnnotation("ProductVersion", "9.0.0-preview.7.24405.3")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -34,6 +34,10 @@ namespace BibliotecaAPI.Migrations
                         .IsRequired()
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
+
+                    b.Property<string>("Foto")
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(max)");
 
                     b.Property<string>("Identificacion")
                         .HasMaxLength(20)
@@ -77,6 +81,9 @@ namespace BibliotecaAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("EstaBorrado")
+                        .HasColumnType("bit");
+
                     b.Property<DateTime>("FechaPublicacion")
                         .HasColumnType("datetime2");
 
@@ -94,6 +101,27 @@ namespace BibliotecaAPI.Migrations
                     b.HasIndex("UsuarioId");
 
                     b.ToTable("Comentarios");
+                });
+
+            modelBuilder.Entity("BibliotecaAPI.Entidades.Error", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("Fecha")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("MensajeDeError")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StackTrace")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Errores");
                 });
 
             modelBuilder.Entity("BibliotecaAPI.Entidades.Libro", b =>
