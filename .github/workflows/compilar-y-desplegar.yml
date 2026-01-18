@@ -28,10 +28,10 @@ jobs:
           dotnet-version: ${{env.VERSION_DOTNET}}
 
       - name: Obteniendo las dependencias
-        run: dontnet restore
+        run: dotnet restore
 
       - name: Compilar
-        run: dontnet build --no-restore
+        run: dotnet build --no-restore
 
       - name: Realizar pruebas
         run: dotnet test --no-build
